@@ -1,0 +1,143 @@
+/* 1. 전체 배경 및 토스 스타일 톤앤매너 */
+body {
+  background-color: #f2f4f6;
+  font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Pretendard", sans-serif;
+  color: #191f28;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  margin: 0;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+h1 {
+  font-size: 24px;
+  font-weight: 700;
+  color: #333d4b;
+  margin-bottom: 24px;
+}
+
+/* 2. 입력창 카드 박스 */
+div {
+  background-color: #ffffff;
+  width: 100%;
+  max-width: 360px;
+  padding: 16px 20px;
+  margin-bottom: 12px;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+  box-sizing: border-box;
+}
+
+label {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: #8b95a1;
+  margin-bottom: 8px;
+}
+
+input[type="text"] {
+  width: 100%;
+  border: none;
+  outline: none;
+  font-size: 18px;
+  font-weight: 600;
+  color: #333d4b;
+  background-color: transparent;
+}
+
+input[type="text"]::placeholder {
+  color: #c9cdd2;
+}
+
+/* 3. 토스 블루 버튼 */
+button {
+  width: 100%;
+  max-width: 360px;
+  background-color: #3182f6;
+  color: #ffffff;
+  border: none;
+  border-radius: 16px;
+  padding: 18px;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  margin-top: 8px;
+  margin-bottom: 20px;
+  transition: background-color 0.2s;
+  box-shadow: 0 4px 12px rgba(49, 130, 246, 0.24);
+}
+
+button:hover {
+  background-color: #1b64da;
+}
+
+button:active {
+  transform: scale(0.98);
+}
+
+/* 4. 상단 결과 텍스트 영역 (중앙 정렬) */
+#result {
+  font-size: 19px;
+  font-weight: 800;
+  color: #191f28;
+  display: block;
+  text-align: center;
+  margin-top: 10px;
+}
+
+/* 기본 상태 글자 스타일 (기본 빨강) */
+#state {
+  display: block;
+  text-align: center;
+  font-size: 19px;
+  font-weight: 800;
+  margin-top: 6px;
+  margin-bottom: 15px;
+}
+
+/* 5. 상태별 글자 색상을 바의 색상과 일치시키기 */
+#state[data-state="저체중"] { color: #4496e5; } /* 저체중: 파랑 */
+#state[data-state="정상"] { color: #8ec641; }   /* 정상: 연두 */
+#state[data-state="과체중"] { color: #e8993f; } /* 과체중: 주황 */
+#state[data-state="비만"] { color: #ea543d; }   /* 비만: 빨강 */
+
+/* 6. 비만도 바 제어 (계산 전에는 숨김) */
+#state:empty::after {
+  display: none !important;
+}
+
+/* 7. 기본 비만도 바 (저체중일 때 / 중앙 정렬) */
+#state:not(:empty)::after {
+  content: "";
+  display: block;
+  width: 360px;
+  height: 75px;
+  margin: 15px auto 0 auto;
+  transition: all 0.3s ease;
+  background-repeat: no-repeat;
+  background-size: contain;
+  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.06));
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="360" height="75"><polygon points="45,14 51,6 39,6" fill="%23555555"/><rect x="0" y="20" width="90" height="40" rx="8" fill="%234496e5"/><rect x="90" y="20" width="90" height="40" fill="%238ec641"/><rect x="180" y="20" width="90" height="40" fill="%23e8993f"/><rect x="270" y="20" width="90" height="40" rx="8" fill="%23ea543d"/><text x="45" y="45" fill="white" font-family="sans-serif" font-size="13" font-weight="bold" text-anchor="middle">저체중</text><text x="135" y="45" fill="white" font-family="sans-serif" font-size="13" font-weight="bold" text-anchor="middle">정상</text><text x="225" y="45" fill="white" font-family="sans-serif" font-size="13" font-weight="bold" text-anchor="middle">과체중</text><text x="315" y="45" fill="white" font-family="sans-serif" font-size="13" font-weight="bold" text-anchor="middle">비만</text><text x="90" y="72" fill="%234e5968" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle">18.5</text><text x="180" y="72" fill="%234e5968" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle">23</text><text x="270" y="72" fill="%234e5968" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle">25</text></svg>');
+}
+
+/* 8. 상태별 화살표 위치 정밀 매칭 (중앙 정렬 유지) */
+
+/* 정상일 때 화살표 위치 (x=135) */
+#state[data-state="정상"]::after {
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="360" height="75"><polygon points="135,14 141,6 129,6" fill="%23555555"/><rect x="0" y="20" width="90" height="40" rx="8" fill="%234496e5"/><rect x="90" y="20" width="90" height="40" fill="%238ec641"/><rect x="180" y="20" width="90" height="40" fill="%23e8993f"/><rect x="270" y="20" width="90" height="40" rx="8" fill="%23ea543d"/><text x="45" y="45" fill="white" font-family="sans-serif" font-size="13" font-weight="bold" text-anchor="middle">저체중</text><text x="135" y="45" fill="white" font-family="sans-serif" font-size="13" font-weight="bold" text-anchor="middle">정상</text><text x="225" y="45" fill="white" font-family="sans-serif" font-size="13" font-weight="bold" text-anchor="middle">과체중</text><text x="315" y="45" fill="white" font-family="sans-serif" font-size="13" font-weight="bold" text-anchor="middle">비만</text><text x="90" y="72" fill="%234e5968" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle">18.5</text><text x="180" y="72" fill="%234e5968" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle">23</text><text x="270" y="72" fill="%234e5968" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle">25</text></svg>');
+}
+
+/* 과체중일 때 화살표 위치 (x=225) */
+#state[data-state="과체중"]::after {
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="360" height="75"><polygon points="225,14 231,6 219,6" fill="%23555555"/><rect x="0" y="20" width="90" height="40" rx="8" fill="%234496e5"/><rect x="90" y="20" width="90" height="40" fill="%238ec641"/><rect x="180" y="20" width="90" height="40" fill="%23e8993f"/><rect x="270" y="20" width="90" height="40" rx="8" fill="%23ea543d"/><text x="45" y="45" fill="white" font-family="sans-serif" font-size="13" font-weight="bold" text-anchor="middle">저체중</text><text x="135" y="45" fill="white" font-family="sans-serif" font-size="13" font-weight="bold" text-anchor="middle">정상</text><text x="225" y="45" fill="white" font-family="sans-serif" font-size="13" font-weight="bold" text-anchor="middle">과체중</text><text x="315" y="45" fill="white" font-family="sans-serif" font-size="13" font-weight="bold" text-anchor="middle">비만</text><text x="90" y="72" fill="%234e5968" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle">18.5</text><text x="180" y="72" fill="%234e5968" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle">23</text><text x="270" y="72" fill="%234e5968" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle">25</text></svg>');
+}
+
+/* 비만일 때 화살표 위치 (x=315) */
+#state[data-state="비만"]::after {
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="360" height="75"><polygon points="315,14 321,6 309,6" fill="%23555555"/><rect x="0" y="20" width="90" height="40" rx="8" fill="%234496e5"/><rect x="90" y="20" width="90" height="40" fill="%238ec641"/><rect x="180" y="20" width="90" height="40" fill="%23e8993f"/><rect x="270" y="20" width="90" height="40" rx="8" fill="%23ea543d"/><text x="45" y="45" fill="white" font-family="sans-serif" font-size="13" font-weight="bold" text-anchor="middle">저체중</text><text x="135" y="45" fill="white" font-family="sans-serif" font-size="13" font-weight="bold" text-anchor="middle">정상</text><text x="225" y="45" fill="white" font-family="sans-serif" font-size="13" font-weight="bold" text-anchor="middle">과체중</text><text x="315" y="45" fill="white" font-family="sans-serif" font-size="13" font-weight="bold" text-anchor="middle">비만</text><text x="90" y="72" fill="%234e5968" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle">18.5</text><text x="180" y="72" fill="%234e5968" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle">23</text><text x="270" y="72" fill="%234e5968" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle">25</text></svg>');
+}
